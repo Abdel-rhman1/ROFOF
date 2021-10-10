@@ -21,14 +21,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::post('/Register' , 'RegisterController@Register');
+Route::post('/adminRegister' , 'adminRegisterController@Register');
+Route::post('/adminLogin' , 'adminLoginController@login');
 Route::post('/Login' , 'LoginController@login');
-Route::group(['middleware'=>'jwt.auth'] , function (){
+Route::post('/vendorRegister' , 'vendorRegisterController@Register');
+Route::post('/vendorLogin' , 'vendorLoginController@login');
+Route::group(['middleware'=>'jwt.auth:api'] , function (){
     Route::get('/users' , function(Request $resquest){
         return auth()->user();
     });
-});
-
-
-Route::group(['middleware'=>'jwt.auth'] , function(){
-    Route::resource('/Book' ,'API\BookController');
 });

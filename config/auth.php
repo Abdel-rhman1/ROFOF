@@ -42,9 +42,23 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'jwt',
             'provider' => 'users',
-            'hash' => false,
+            'hash' => true,
+        ],
+        'admins' => [
+            'driver' => 'jwt',
+            'provider' => 'admins',
+            'hash' => true,
+        ],
+        'subadmins' => [
+            'driver' => 'jwt',
+            'provider' => 'vendors',
+            'hash' => true,
+        ],
+        'users' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
         ],
     ],
 
@@ -66,6 +80,19 @@ return [
     */
 
     'providers' => [
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => App\User::class,
+        ],
+
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\admin::class,
+        ],
+        'subadmins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\vendor::class,
+        ],
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
