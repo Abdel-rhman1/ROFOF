@@ -89,7 +89,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\admin::class,
         ],
-        'subadmins' => [
+        'vendors' => [
             'driver' => 'eloquent',
             'model' => App\Models\vendor::class,
         ],

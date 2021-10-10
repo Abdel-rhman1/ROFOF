@@ -26,7 +26,7 @@ Route::post('/adminLogin' , 'adminLoginController@login');
 Route::post('/Login' , 'LoginController@login');
 Route::post('/vendorRegister' , 'vendorRegisterController@Register');
 Route::post('/vendorLogin' , 'vendorLoginController@login');
-Route::group(['middleware'=>'jwt.auth:api'] , function (){
+Route::group(['middleware'=>'assign.guard:subadmins'] , function (){
     Route::get('/users' , function(Request $resquest){
         return auth()->user();
     });
