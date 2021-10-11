@@ -38,3 +38,6 @@ Route::group(['middleware'=>'assign.guard:admins'] , function(){
 });
 
 
+Route::group([],function(){
+    Route::post("/createStor" , "API\StorController@store");
+});
