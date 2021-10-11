@@ -12,7 +12,7 @@ class StorController extends BaseController
 {
     public function index(){
         $stors = stor::all();
-        return $this->sendResponse($books->toArray(), 'stors read succesfully');
+        return $this->sendResponse($stors->toArray(), 'stors read succesfully');
     }
     public function store(Request $resquest){
         $validator = Validator::make($resquest->all() , [
