@@ -15,16 +15,11 @@ class CreateVendorsTable extends Migration
     {
         Schema::create('vendors2', function (Blueprint $table) {
             $table->id();
-            $table->integer("admin_id");
-            $table->integer("paln_id");
-            $table->integer("stor_id");
-            $table->string("Name");
+            $table->integer("admin_id")->default(null);
+            $table->string("name");
             $table->string("email")->uniqe(); //optional
             $table->string("phone");
-            $table->boolean("is_wattsap");
-            $table->string("address");
-            $table->string("about");
-            $table->string("image");
+            $table->string("password");
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ class RegisterController extends Controller
     public function Register(Request $res){
         $val = Validator::make($res->all() , [
            'name'=>'required|string|max:200',
-           'email'=>'required|email',
+           'email'=>'required|email|unique:users',
            'password'=>'required', 
         ]);
         if($val->fails()){

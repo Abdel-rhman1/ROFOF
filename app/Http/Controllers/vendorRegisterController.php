@@ -12,8 +12,11 @@ class vendorRegisterController extends Controller
     public function Register(Request $res){
         $val = Validator::make($res->all() , [
            'name'=>'required|string|max:200',
-           'email'=>'required|email',
+           'email'=>'required|email|unique:vendors2',
            'password'=>'required', 
+           'phone'=>'required',
+        ],[
+            
         ]);
         if($val->fails()){
             return response()->json($val->errors());
@@ -21,6 +24,7 @@ class vendorRegisterController extends Controller
         vendor::create([
             'email'=>$res->email,
             'name'=>$res->name,
+            'phone'=>$res->phone,
             'password'=>bcrypt($res->password),
         ]);
         $user = vendor::first();

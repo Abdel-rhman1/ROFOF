@@ -8,9 +8,9 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Model;
 class vendor extends  Authenticatable implements JWTSubject
 {
-    protected $table = "vendors";
+    protected $table = "vendors2";
     protected $fillable = [
-        'name' , 'email' , 'password' , 'id',
+        'name' , 'email' , 'password' , 'id','phone'
     ];
     public $timestamps = false;
     public function getJWTIdentifier()
