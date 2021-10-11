@@ -36,7 +36,7 @@ class StorController extends BaseController
                 'email'=>$resquest->email,
                 'name'=>$resquest->stor_admin,
                 'phone'=>$resquest->phone,
-                'password'=>bcrypt($res->password),
+                'password'=>bcrypt($resquest->password),
             ]);
             $stor = stor::create([
                 'name'=>$resquest->name,
@@ -48,7 +48,7 @@ class StorController extends BaseController
                 'stor_id'=>$stor->id,
                 'stor_url'=>$resquest->stor_link,
             ]);
-            return $this->sendResponse($book->toArray(), 'Book  created succesfully');
+            return $this->sendResponse($stor->toArray(), 'stor  created succesfully');
         }
     }
 
