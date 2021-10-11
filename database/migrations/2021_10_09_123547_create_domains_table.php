@@ -16,7 +16,7 @@ class CreateDomainsTable extends Migration
         Schema::create('domains', function (Blueprint $table) {
             $table->id();
             $table->integer("vendor_id");
-            $table->integer("employeer_id");
+            $table->integer("employeer_id")->nullable();
             $table->integer("stor_id");
             $table->string("stor_url");
             $table->timestamps();
