@@ -16,7 +16,7 @@ class vendorRegisterController extends Controller
            'password'=>'required', 
            'phone'=>'required',
         ],[
-            
+
         ]);
         if($val->fails()){
             return response()->json($val->errors());
