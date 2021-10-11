@@ -9,11 +9,11 @@ use Validator;
 class BookController extends BaseController
 {
     public function index()
-{
-    # code...
-    $books = Book::all();
-    return $this->sendResponse($books->toArray(), 'Books read succesfully');
-}
+    {
+        # code...
+        $books = Book::all();
+        return $this->sendResponse($books->toArray(), 'Books read succesfully');
+    }
 
 
 public function store(Request $request)

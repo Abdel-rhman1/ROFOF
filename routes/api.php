@@ -31,3 +31,13 @@ Route::group(['middleware'=>'assign.guard:subadmins'] , function (){
         return auth()->user();
     });
 });
+
+
+Route::group(['middleware'=>'assign.guard:admins'] , function(){
+    Route::get('/stors' , 'API\StorController@index');
+});
+
+
+Route::group(function(){
+    Route::post("/createStor" , "API\StorController@store");
+});

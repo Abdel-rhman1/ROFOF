@@ -20,6 +20,7 @@ class CreateStorsTable extends Migration
             $table->string("name");
             $table->integer("domain_id");
             $table->integer("stor_type");
+            $table->string("invitation_cubon")->nullable();
             $table->timestamps();
         });
     }
