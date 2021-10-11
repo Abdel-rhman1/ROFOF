@@ -35,7 +35,7 @@ class StorController extends BaseController
             $vendor = vendor::create([
                 'email'=>$resquest->email,
                 'name'=>$resquest->stor_admin,
-                'phone'=>$resquest->phone,
+                'phone'=>$resquest->admin_phone,
                 'password'=>bcrypt($resquest->password),
             ]);
             $stor = stor::create([
