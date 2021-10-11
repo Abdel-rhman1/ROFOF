@@ -17,6 +17,7 @@ class CreateBranchesTable extends Migration
             $table->id();
             $table->integer("vendor_id");
             $table->integer("stor_id");
+            $table->boolean("mainBranch");
             $table->string("Name");
             $table->string("country");
             $table->string("city");
@@ -24,23 +25,20 @@ class CreateBranchesTable extends Migration
             $table->string("postal_code");
             $table->string("street");
             $table->string("state");
-            $table->string("phone");
-            $table->string("mobile");
-            $table->string("whattsap");
-            $table->string("period");
-            $table->boolean("uponrecipt");
-            $table->string("uponreciptcost");
-            $table->string("sun");
-            $table->string("mon");
-            $table->string("tues");
-            $table->string("wend");
-            $table->string("thur");
-            $table->string("fri");
-            $table->string("sta");
-            $table->string("location_lat");
-            $table->string("location_lang");
+            $table->string("phone")->nullable();
+            $table->string("mobile")->nullable();
+            $table->string("whattsap")->nullable();
+            $table->string("period")->nullable();
+            $table->boolean("uponrecipt")->nullable();
+            $table->string("uponreciptcost")->nullable();
+            $table->string("sun")->nullable();
+            $table->string("mon")->nullable();
+            $table->string("tues")->nullable();
+            $table->string("wend")->nullable();
+            $table->string("thur")->nullable();
+            $table->string("fri")->nullable();
+            $table->string("sta")->nullable();
             $table->timestamps();
-            
         });
     }
 

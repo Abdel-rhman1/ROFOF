@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -37,6 +36,20 @@ Route::group(['middleware'=>'assign.guard:admins'] , function(){
     Route::get('/stors' , 'API\StorController@index');
 });
 
+Route::group(['middleware'=>'assign.guard:subadmins'] , function(){
+    Route::group(['prefix'=>'branch'] , function(){
+        Route::post("create" , 'API\branchController@createbranch');
+    });
+    Route::group(['prefix'=>'stor'], function(){
+        Route::post("update/{id}" , 'API\StorController@update');
+        Route::post("setActivity/{id}" , 'API\StorController@storActivity');
+        Route::post('setCustomerServices/{id}' , 'API\StorController@customerServicesStor');
+        Route::post('setsocialMedia/{id}' , 'API\StorController@socialMedia');
+        Route::post('setlinks/{id}' , 'API\StorController@links');
+        //Route::post('setCustomerServices' , 'API\StorController@customerServicesStor');
+
+    });
+});
 
 Route::group([],function(){
     Route::post("/createStor" , "API\StorController@store");

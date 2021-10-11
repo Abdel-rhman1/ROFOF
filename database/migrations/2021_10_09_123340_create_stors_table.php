@@ -17,6 +17,9 @@ class CreateStorsTable extends Migration
             $table->id();
             $table->integer("vendor_id");
             $table->integer("plan_id")->default(0);
+            $table->text("description")->nullable();
+            $table->string("image")->nullable();
+            $table->string("browserIcon")->nullable();
             $table->string("name");
             $table->integer("stor_type");
             $table->string("invitation_cubon")->nullable();
