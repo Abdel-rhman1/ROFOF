@@ -46,8 +46,22 @@ Route::group(['middleware'=>'assign.guard:subadmins'] , function(){
         Route::post('setCustomerServices/{id}' , 'API\StorController@customerServicesStor');
         Route::post('setsocialMedia/{id}' , 'API\StorController@socialMedia');
         Route::post('setlinks/{id}' , 'API\StorController@links');
-        //Route::post('setCustomerServices' , 'API\StorController@customerServicesStor');
+        
+        Route::get('getCat/{stor_id}' , 'API\CategoriesController@index');
+        Route::post('createCat/{stor_id}' , 'API\CategoriesController@createCategories');
+        Route::post('updateCat/{stor_id}' , 'API\CategoriesController@updateCat');
+        Route::post('delete/{cat_id}' , 'API\CategoriesController@deleteCat');
 
+        Route::get('getbrands/{stor_id}' , 'API\brandController@getStorbrands');
+        Route::post('createbrands/{stor_id}' ,'API\brandController@createBrands' );
+        Route::post('updatebrands/{brand_id}' , 'API\brandController@update');
+        Route::post('deletebrand/{brand_id}' , 'API\brandController@delete');
+
+        Route::get('getProuts/{stor_id}' , 'API\ProducController@index');
+        Route::post('createProduct' , "API\ProducController@createProduct");
+        Route::post('updateProduct' , "API\ProducController@update");
+        Route::post('deleteProduct' , 'API\ProducController@delete');
+        //Route::post('setCustomerServices' , 'API\StorController@customerServicesStor');
     });
 });
 

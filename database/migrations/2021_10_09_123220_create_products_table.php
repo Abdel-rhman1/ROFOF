@@ -15,25 +15,21 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {            
             $table->id();
-            $table->integer("vendor_id");
             $table->integer("stor_id");
-            $table->integer("branch_id");
-            $table->integer("category_id");
-            $table->integer("brand_id");
+            $table->integer("branch_id")->nullable();
+            $table->string("categories")->default("");
+            $table->string("type");
             $table->integer("employeer_id");
-            $table->integer("cost");
             $table->integer("price");
-            $table->integer("qty");
-            $table->boolean("unlimitedOrNot");
-            $table->integer("alert_quantity");
-            $table->integer("remaining");
-            $table->string("mainImage");
-            $table->boolean("moreThanImage");
-            $table->text("tags");
-            $table->boolean("is_variant");
-            $table->boolean("is_diffPrice");
-            $table->text("product_details");
-            $table->boolean("is_active");
+            $table->integer("qty")->default(0);
+            $table->boolean("unlimitedOrNot")->default(false);
+            $table->integer("alert_quantity")->default(0);
+            $table->integer("remaining")->default(0);
+            $table->string("mainImage")->nullable();
+            $table->string("viedo")->nullable();
+            $table->boolean("moreThanImage")->default(false);
+            $table->boolean("is_variant")->default(false);
+            $table->boolean("is_diffPrice")->default(false);
             $table->timestamps();
         });
     }

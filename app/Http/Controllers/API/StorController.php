@@ -69,7 +69,7 @@ class StorController extends BaseController
             return $this->sendError('error validation', $validator->errors());
         }
         else{
-            $stor = stor::findOrFail($id);
+            $stor = stor::find($id);
             if(!$stor){
                 return $this->sendError('dosent exist id' ,[] , 200);
             }
@@ -91,7 +91,7 @@ class StorController extends BaseController
             return $this->sendError('error validation', $validator->errors());
         }
         else{            
-            $stor = stor::findOrFail($id);
+            $stor = stor::find($id);
             if(!$stor){
                 return $this->sendError('dosent exist id' ,[] , 200);
             }
@@ -119,7 +119,7 @@ class StorController extends BaseController
             return $this->sendError('error validation', $validator->errors());
         }
         else{            
-            $stor = stor::findOrFail($id);
+            $stor = stor::find($id);
             if(!$stor){
                 return $this->sendError('dosent exist id' ,[] , 200);
             }
@@ -147,7 +147,7 @@ class StorController extends BaseController
             return $this->sendError('error validation', $validator->errors());
         }
         else{            
-            $stor = stor::findOrFail($id);
+            $stor = stor::find($id);
             if(!$stor){
                 return $this->sendError('dosent exist id' ,[] , 200);
             }
@@ -172,7 +172,7 @@ class StorController extends BaseController
             return $this->sendError('error validation', $validator->errors());
         }
         else{            
-            $stor = stor::findOrFail($id);
+            $stor = stor::find($id);
             if(!$stor){
                 return $this->sendError('dosent exist id' ,[] , 200);
             }
