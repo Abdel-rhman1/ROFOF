@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $table->integer("stor_id");
             $table->integer("branch_id")->nullable();
             $table->string("categories")->default("");
+            $table->string("name");
             $table->string("type");
             $table->integer("employeer_id");
             $table->integer("price");
@@ -26,6 +27,7 @@ class CreateProductsTable extends Migration
             $table->integer("alert_quantity")->default(0);
             $table->integer("remaining")->default(0);
             $table->string("mainImage")->nullable();
+            $table->string("details")->nullable();
             $table->string("viedo")->nullable();
             $table->boolean("moreThanImage")->default(false);
             $table->boolean("is_variant")->default(false);

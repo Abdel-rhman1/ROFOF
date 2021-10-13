@@ -82,10 +82,7 @@ public function update(Request $request , Book $book)
 // delete book 
 public function destroy(Book $book)
 {
- 
     $book->delete();
-
-    return $this->sendResponse($book->toArray(), 'Book  deleted succesfully');
-    
+    return $this->sendResponse($book->toArray(), 'Book  deleted succesfully');  
 }
 }

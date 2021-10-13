@@ -37,7 +37,7 @@ Route::group(['middleware'=>'assign.guard:admins'] , function(){
 });
 
 Route::group(['middleware'=>'assign.guard:subadmins'] , function(){
-    Route::group(['prefix'=>'branch'] , function(){
+    Route::group(['prefix'=>'branch' , 'middleware'=>'assign.guard:subadmins'] , function(){
         Route::post("create" , 'API\branchController@createbranch');
     });
     Route::group(['prefix'=>'stor'], function(){
@@ -59,9 +59,17 @@ Route::group(['middleware'=>'assign.guard:subadmins'] , function(){
 
         Route::get('getProuts/{stor_id}' , 'API\ProducController@index');
         Route::post('createProduct' , "API\ProducController@createProduct");
-        Route::post('updateProduct' , "API\ProducController@update");
-        Route::post('deleteProduct' , 'API\ProducController@delete');
+        Route::post('updateProduct/{P_id}' , "API\ProducController@update");
+        Route::post('deleteProduct/{P_id}' , 'API\ProducController@delete');
+        Route::post('getByCat/{stor_id}/{Cat_id}' , 'API\ProducController@getByCat');
+        Route::post('getByBrand/{stor_id}/{b_id}' , 'API\ProducController@getByBrand');
+        Route::post("addProductCat" , "API\ProducController@addCats");
+        Route::post("addProductBrand" , "API\ProducController@addBrand");
+        Route::post("ProductSearch" , 'API\ProducController@ProductSearch');
         //Route::post('setCustomerServices' , 'API\StorController@customerServicesStor');
+    });
+    Route::group(['prefix'=>'customer'] , function(){
+        
     });
 });
 

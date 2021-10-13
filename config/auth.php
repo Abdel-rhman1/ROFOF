@@ -56,10 +56,7 @@ return [
             'provider' => 'vendors',
             'hash' => true,
         ],
-        'users' => [
-            'driver' => 'jwt',
-            'provider' => 'users',
-        ],
+      
     ],
 
     /*
@@ -138,7 +135,5 @@ return [
     | confirmation screen. By default, the timeout lasts for three hours.
     |
     */
-
     'password_timeout' => 10800,
-
 ];

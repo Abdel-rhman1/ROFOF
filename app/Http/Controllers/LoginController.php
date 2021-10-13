@@ -20,7 +20,7 @@ class LoginController extends Controller
         }
         $credentials = $request->only('email','password');
         try{
-            if (!$token = Auth('api')->setTTL(60)->attempt($credentials)) {
+            if (!$token = Auth('api')->attempt($credentials)) {
                 //return $token;
                 return response()->json( ['error'=> 'invalid username and password'],401);
             }
