@@ -21,7 +21,7 @@ class StorController extends BaseController
     public function store(Request $resquest){
         $validator = Validator::make($resquest->all() , [
             'name'=>'required|min:4|unique:stors',
-            'stor_link'=>'required',
+            'stor_link'=>'required|min:4|unique:stors',
             'stor_type'=>'required',
             'stor_admin'=>'required|min:4',
             'admin_phone'=>'required',
@@ -42,17 +42,20 @@ class StorController extends BaseController
                 'phone'=>$resquest->admin_phone,
                 'password'=>bcrypt($resquest->password),
             ]);
+            //$data = $resquest->except('email' , 'stor_admin' , 'phone' , 'password');
+            
             $stor = stor::create([
                 'name'=>$resquest->name,
                 'stor_type'=>$resquest->stor_type,
                 'vendor_id'=>$vendor->id,
+                'stor_link'=>$resquest->stor_link,
             ]);
             $domain = domain::create([
                 'vendor_id'=>$vendor->id,
                 'stor_id'=>$stor->id,
                 'stor_url'=>$resquest->stor_link,
             ]);
-            return $this->sendResponse($stor->toArray(), 'stor  created succesfully');
+            return $this->sendResponse($resquest->all(), 'stor  created succesfully');
         }
     }
     public function update(Request $resquest , $id){

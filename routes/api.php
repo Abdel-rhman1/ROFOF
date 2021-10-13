@@ -51,12 +51,10 @@ Route::group(['middleware'=>'assign.guard:subadmins'] , function(){
         Route::post('createCat/{stor_id}' , 'API\CategoriesController@createCategories');
         Route::post('updateCat/{stor_id}' , 'API\CategoriesController@updateCat');
         Route::post('delete/{cat_id}' , 'API\CategoriesController@deleteCat');
-
         Route::get('getbrands/{stor_id}' , 'API\brandController@getStorbrands');
         Route::post('createbrands/{stor_id}' ,'API\brandController@createBrands' );
         Route::post('updatebrands/{brand_id}' , 'API\brandController@update');
         Route::post('deletebrand/{brand_id}' , 'API\brandController@delete');
-
         Route::get('getProuts/{stor_id}' , 'API\ProducController@index');
         Route::post('createProduct' , "API\ProducController@createProduct");
         Route::post('updateProduct/{P_id}' , "API\ProducController@update");
@@ -69,7 +67,7 @@ Route::group(['middleware'=>'assign.guard:subadmins'] , function(){
         //Route::post('setCustomerServices' , 'API\StorController@customerServicesStor');
     });
     Route::group(['prefix'=>'customer'] , function(){
-        
+
     });
 });
 
