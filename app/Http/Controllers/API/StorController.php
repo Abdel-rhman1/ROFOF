@@ -112,7 +112,7 @@ class StorController extends BaseController
         if(!$stor){
             return $this->sendError(' This Stor dosent exist' ,[] , 400);
         }
-        $storActivities = storActivities::where('stor_id' , '=' , $stor_id);
+        $storActivities = storActivities::where('stor_id' , '=' , $stor_id)->get();
         if(!$storActivities){
             return $this->sendError('Errro In Getting This Stor Ativities' ,[] , 500);
         }else{
