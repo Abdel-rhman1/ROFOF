@@ -144,7 +144,7 @@ class StorController extends BaseController
             return $this->sendResponse($stor1, 'stor updated succesfully');
         }
     }
-    public function getCustomerServicesStor($stor_id){
+    public function getCustomerServicesStor(int $stor_id){
         $stor = stor::find($stor_id);
         if(!$stor){
             return $this->sendError(' This Stor dosent exist' ,[] , 400);
