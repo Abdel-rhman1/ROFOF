@@ -227,7 +227,7 @@ class StorController extends BaseController
             return $this->sendError('This Stor dosent exist' ,[] , 400);
         }
         $links = links::where('stor_id' , '=' , $stor_id)->get();
-        if(!$socialMedia){
+        if(!$links){
             return $this->sendError('Errro In Getting This Stor Links' ,[] , 500);
         }else{
             return $this->sendResponse($links, 'stor Links Reads succesfully');
