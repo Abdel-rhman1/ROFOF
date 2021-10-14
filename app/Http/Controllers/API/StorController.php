@@ -173,15 +173,15 @@ class StorController extends BaseController
             return $this->sendError('error validation', $validator->errors());
         }
         else{            
-            $stor1 = stor::find($resquest->stor_id);
-            if(!$stor1){
-                return $this->sendError('dosent exist id' ,[] , 200);
+            $stor = stor::find($resquest->stor_id);
+            if(!$stor){
+                return $this->sendError('dosent exist id' ,[] , 400);
             }
             $data = $resquest->except('token');
             $stor = socialMedia::updateOrCreate( ['stor_id'=> $resquest->stor_id], 
                 $data
             );
-            return $this->sendResponse($stor1, 'stor updated succesfully');
+            return $this->sendResponse($stor, 'stor updated succesfully');
         }
     }
     public function getSocialLinks(int $stor_id){
