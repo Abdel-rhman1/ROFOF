@@ -174,7 +174,7 @@ class StorController extends BaseController
         }
         else{            
             $stor = stor::find($resquest->stor_id);
-            if(!$stor){
+            if(!$stor1){
                 return $this->sendError('dosent exist id' ,[] , 400);
             }
             $data = $resquest->except('token');
@@ -218,7 +218,7 @@ class StorController extends BaseController
             $stor = links::updateOrCreate( ['stor_id'=>$resquest->stor_id], 
                 $data
             );
-            return $this->sendResponse($stor1, 'stor updated succesfully');
+            return $this->sendResponse($stor, 'stor updated succesfully');
         }
     }   
     public function getLinks($stor_id){
