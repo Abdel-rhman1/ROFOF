@@ -20,7 +20,7 @@ class ProducController extends BaseController
     }  
     public function createProduct(Request $request){
         /*
-            id' , 'stor_id' , 'branch_id' , 'categories' , 'type' , 'employeer_id' , 'price'
+        id' , 'stor_id' , 'branch_id' , 'categories' , 'type' , 'employeer_id' , 'price'
         ,'qty' , 'unlimitedOrNot' , 'alert_quantity' , 'remaining' , 'mainImage' ,'viedo',
         'moreThanImage' , 'is_variant' , 'is_diffPrice'
         */

@@ -76,7 +76,7 @@ class StorController extends BaseController
             if(!$stor){
                 return $this->sendError('dosent exist id' ,[] , 200);
             }
-            $data = $resquest->except('toekn');
+            $data = $resquest->except('token');
             $stor = stor::where('id' , '=' , $id)->update($data);
             return $this->sendResponse($stor, 'stor updated succesfully');
         }
