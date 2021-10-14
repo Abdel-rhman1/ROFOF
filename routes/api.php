@@ -47,7 +47,7 @@ Route::group(['middleware'=>'assign.guard:subadmins'] , function(){
         Route::get("getActivities/{stor_id}" , 'API\StorController@getStorActivity');
         
         Route::post('setCustomerServices' , 'API\StorController@customerServicesStor');
-        Route::get('getCustomerService/{stor_id}','API\StorController@customerServicesStor');
+        Route::get('getCustomerService/{stor_id}','API\StorController@getCustomerServicesStor');
         
         Route::post('setsocialMedia' , 'API\StorController@socialMedia');
         Route::post("getSocialLinks/{id}" , 'API\StorController@getSocialLinks');
