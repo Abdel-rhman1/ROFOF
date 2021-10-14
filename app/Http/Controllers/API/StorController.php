@@ -108,7 +108,7 @@ class StorController extends BaseController
     }
 
     public function getStorActivity(int $stor_id){
-        $stor = stro::find($stor_id);
+        $stor = stor::find($stor_id);
         if(!$stor){
             return $this->sendError(' This Stor dosent exist' ,[] , 400);
         }
