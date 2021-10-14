@@ -120,7 +120,7 @@ class StorController extends BaseController
         }
     }
 
-    public function customerServicesStor(Request $resquest , $id){
+    public function customerServicesStor(Request $resquest){
         $validator = Validator::make($resquest->all() , [
             //'sun'=>'required_without_all:mon,tues,wend,thur,fri,sta',
             'stor_id'=>'required',
