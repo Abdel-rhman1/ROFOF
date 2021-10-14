@@ -16,10 +16,10 @@ class CreateBrandsTable extends Migration
         Schema::create('brands', function (Blueprint $table) {
             $table->id();
             $table->integer("stor_id");
-            $table->string("brandName");
+            $table->string("name");
             $table->string("details")->nullable();
             $table->string("banarIamge")->nullable();
-            $table->string("brandLogo");
+            $table->string("logo");
             $table->string("pagetitle")->nullable();
             $table->text("pageDescription")->nullable();
             $table->timestamps();

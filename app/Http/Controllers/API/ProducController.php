@@ -63,7 +63,6 @@ class ProducController extends BaseController
     }
 
     public function addCats(Request $request){
-        //$p_id , $cat_id
         $validator = Validator::make($request->all() , [
             'p_id'=>'required|numeric|min:0',
             'cat_id'=>'required|numeric|min:0',
@@ -72,15 +71,30 @@ class ProducController extends BaseController
 
         ]);
         if($validator->fails()){
-            return $this->sendError('error validation', $validator->errors()); 
-        }else{
-            $product = ProductCat::create([
-                'cat_id'=>$request->cat_id,
-                'product_id'=>$request->p_id,
-                'stor_id'=>$request->stor_id,
-            ]);
-            return $this->sendResponse($product->toArray(), 'Cat add To product succesfully');
+            return $this->sendError('error validation', $validator->errors());
         }
+        $cat = Categories::find($request->cat_id);
+        $stor = stor::find($request->stor_id);
+        $prod = Produc::find($request->p_id);
+        if(!$stor || !$cat || !$prod){
+            return $this->sendError('this stor_id or brand_id dosent exist', []);
+        }
+        $product = ProductCat::where([
+            ['stor_id' , '=' , $request->stor_id],
+            ['cat_id' , '='  , $request->cat_id],
+            ['product_id' , '=' , $request->p_id]
+        ])->get();
+        // return count($product);
+        if(count($product) > 0){
+            return $this->sendError('this Product Oready In This Category', []);
+        }
+        $product = ProductCat::create([
+            'cat_id'=>$request->cat_id,
+            'product_id'=>$request->p_id,
+            'stor_id'=>$request->stor_id,
+        ]);
+        return $this->sendResponse($product->toArray(), 'Cat add To product succesfully');
+        
     }
 
     public function addBrand(Request $request){
@@ -94,14 +108,28 @@ class ProducController extends BaseController
         ]);
         if($validator->fails()){
             return $this->sendError('error validation', $validator->errors());
-        }else{
-            $product = ProductBrand::create([
-                'p_id'=>$request->p_id,
-                'b_id'=>$request->b_id,
-                'stor_id'=>$request->stor_id,
-            ]);
-            return $this->sendResponse($product->toArray(), 'Brand add To product succesfully');
         }
+        $Brands = Brand::find($request->b_id);
+        $stor = stor::find($request->stor_id);
+        $prod = Produc::find($request->p_id);
+        if(!$stor || !$Brands || !$prod){
+            return $this->sendError('this stor_id or brand_id dosent exist', []);
+        }
+        $product =ProductBrand::where([
+            ['stor_id' , '=' , $request->stor_id],
+            ['b_id' , '='  , $request->b_id],
+            ['p_id' , '=' , $request->p_id]
+        ])->get();
+        if(count($product) > 0){
+            return $this->sendError('this Product Oready In This Brand', []);
+        }
+        $product = ProductBrand::create([
+            'p_id'=>$request->p_id,
+            'b_id'=>$request->b_id,
+            'stor_id'=>$request->stor_id,
+        ]);
+        return $this->sendResponse($product->toArray(), 'Brand add To product succesfully');
+        
     }
     public function update(Request $request , $P_id){
             $validator = Validator::make($request->all()  , [

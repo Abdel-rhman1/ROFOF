@@ -8,7 +8,7 @@ class Brand extends Model
 {
     protected $table = "brands";
     protected $fillable = [
-        'id' , 'stor_id' , 'details' , 'brandName' , 'banarIamge' , 'brandLogo' ,'pagetitle'
+        'id' , 'stor_id' , 'details' , 'name' , 'banarIamge' , 'logo' ,'pagetitle'
         ,'pageDescription',
     ];
 }
