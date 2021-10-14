@@ -82,7 +82,7 @@ class StorController extends BaseController
         }
     }
 
-    public function storActivity(Request $resquest , $id){
+    public function storActivity(Request $resquest){
 
         $validator = Validator::make($resquest->all() , [
             'stor_id'=>'required',
@@ -147,6 +147,11 @@ class StorController extends BaseController
             return $this->sendResponse($stor1, 'stor updated succesfully');
         }
     }
+
+    public function getCustomerServicesStor($stor_id){
+
+    }
+
     public function socialMedia(Request $resquest , $id){
         //'id','stor_id', 'instgram','twitter','facebook','youtube','snapchat','tiktok'
         $validator = Validator::make($resquest->all() , [
