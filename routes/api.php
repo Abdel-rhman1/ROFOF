@@ -43,6 +43,7 @@ Route::group(['middleware'=>'assign.guard:subadmins'] , function(){
     Route::group(['prefix'=>'stor'], function(){
         Route::post("update/{id}" , 'API\StorController@update');
         Route::post("setActivity/{id}" , 'API\StorController@storActivity');
+        Route::get("getActivities/{stor_id}" , 'API\StorController@getStorActivity');
         Route::post('setCustomerServices/{id}' , 'API\StorController@customerServicesStor');
         Route::post('setsocialMedia/{id}' , 'API\StorController@socialMedia');
         Route::post('setlinks/{id}' , 'API\StorController@links');

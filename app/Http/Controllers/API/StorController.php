@@ -106,6 +106,20 @@ class StorController extends BaseController
             return $this->sendResponse($stor, 'stor updated succesfully');
         }
     }
+
+    public function getStorActivity(int $stor_id){
+        $stor = stro::find($stor_id);
+        if(!$stor){
+            return $this->sendError(' This Stor dosent exist' ,[] , 400);
+        }
+        $storActivities = storActivities::where('stor_id' , '=' , $stor_id);
+        if(!$storActivities){
+            return $this->sendError('Errro In Getting This Stor Ativities' ,[] , 500);
+        }else{
+            return $this->sendResponse($storActivities, 'stor Activities Reads succesfully');
+        }
+    }
+
     public function customerServicesStor(Request $resquest , $id){
         $validator = Validator::make($resquest->all() , [
             //'sun'=>'required_without_all:mon,tues,wend,thur,fri,sta',
