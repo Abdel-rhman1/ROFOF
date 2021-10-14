@@ -42,12 +42,19 @@ Route::group(['middleware'=>'assign.guard:subadmins'] , function(){
     });
     Route::group(['prefix'=>'stor'], function(){
         Route::post("update/{id}" , 'API\StorController@update');
+        
         Route::post("setActivity" , 'API\StorController@storActivity');
         Route::get("getActivities/{stor_id}" , 'API\StorController@getStorActivity');
-        Route::post('setCustomerServices' , 'API\StorController@customerServicesStor');
-        Route::post('setsocialMedia/{id}' , 'API\StorController@socialMedia');
-        Route::post('setlinks/{id}' , 'API\StorController@links');
         
+        Route::post('setCustomerServices' , 'API\StorController@customerServicesStor');
+        Route::get('getCustomerService' , 'API\StorController@getCustomerServicesStor');
+        
+        Route::post('setsocialMedia' , 'API\StorController@socialMedia');
+        Route::post("getSocialLinks/{id}" , 'API\StorController@getSocialLinks');
+        
+        Route::post('setlinks' , 'API\StorController@links');
+        Route::get('getLinks/{id}' , 'API\StorController@getLinks');
+       
         Route::get('getCat/{stor_id}' , 'API\CategoriesController@index');
         Route::post('createCat' , 'API\CategoriesController@createCategories');
         Route::post('updateCat/{cat_id}' , 'API\CategoriesController@updateCat');
@@ -58,6 +65,7 @@ Route::group(['middleware'=>'assign.guard:subadmins'] , function(){
         Route::post('updatebrands/{brand_id}' , 'API\brandController@update');
         Route::post('deletebrand/{brand_id}' , 'API\brandController@delete');
         
+
         Route::get('getProuts/{stor_id}' , 'API\ProducController@index');
         Route::post('createProduct' , "API\ProducController@createProduct");
         Route::post('updateProduct/{P_id}' , "API\ProducController@update");

@@ -81,7 +81,6 @@ class StorController extends BaseController
             return $this->sendResponse($stor1, 'stor updated succesfully');
         }
     }
-
     public function storActivity(Request $resquest){
 
         $validator = Validator::make($resquest->all() , [
@@ -106,7 +105,6 @@ class StorController extends BaseController
             return $this->sendResponse($stor, 'stor updated succesfully');
         }
     }
-
     public function getStorActivity(int $stor_id){
         $stor = stor::find($stor_id);
         if(!$stor){
@@ -119,7 +117,6 @@ class StorController extends BaseController
             return $this->sendResponse($storActivities, 'stor Activities Reads succesfully');
         }
     }
-
     public function customerServicesStor(Request $resquest){
         $validator = Validator::make($resquest->all() , [
             //'sun'=>'required_without_all:mon,tues,wend,thur,fri,sta',
@@ -136,23 +133,30 @@ class StorController extends BaseController
             return $this->sendError('error validation', $validator->errors());
         }
         else{            
-            $stor = stor::find($resquest->stor_id);
-            if(!$stor){
+            $stor1 = stor::find($resquest->stor_id);
+            if(!$stor1){
                 return $this->sendError('dosent exist id' ,[] , 200);
             }
             $data = $resquest->except('token');
-            $stor1 = customerService::updateOrCreate(['stor_id'=> $resquest->stor_id],
+            $stor = customerService::updateOrCreate(['stor_id'=> $resquest->stor_id],
                 $data
             );
             return $this->sendResponse($stor1, 'stor updated succesfully');
         }
     }
-
     public function getCustomerServicesStor($stor_id){
-
+        $stor = stor::find($stor_id);
+        if(!$stor){
+            return $this->sendError(' This Stor dosent exist' ,[] , 400);
+        }
+        $customerService = customerService::where('stor_id' , '=' , $stor_id)->get();
+        if(!$customerService){
+            return $this->sendError('Errro In Getting This Stor customer Service Links' ,[] , 500);
+        }else{
+            return $this->sendResponse($storActivities, 'stor customer Service Links Reads succesfully');
+        }
     }
-
-    public function socialMedia(Request $resquest , $id){
+    public function socialMedia(Request $resquest){
         //'id','stor_id', 'instgram','twitter','facebook','youtube','snapchat','tiktok'
         $validator = Validator::make($resquest->all() , [
             //'sun'=>'required_without_all:mon,tues,wend,thur,fri,sta',
@@ -169,18 +173,30 @@ class StorController extends BaseController
             return $this->sendError('error validation', $validator->errors());
         }
         else{            
-            $stor = stor::find($id);
-            if(!$stor){
+            $stor1 = stor::find($resquest->stor_id);
+            if(!$stor1){
                 return $this->sendError('dosent exist id' ,[] , 200);
             }
-            $data = $resquest->except('toekn');
-            $stor = socialMedia::updateOrCreate( ['stor_id'=> $id ] , 
+            $data = $resquest->except('token');
+            $stor = socialMedia::updateOrCreate( ['stor_id'=> $resquest->stor_id], 
                 $data
             );
-            return $this->sendResponse($stor, 'stor updated succesfully');
+            return $this->sendResponse($stor1, 'stor updated succesfully');
         }
     }
-    public function links(Request $resquest , $id){
+    public function getSocialLinks(int $stor_id){
+        $stor = stor::find($stor_id);
+        if(!$stor){
+            return $this->sendError('This Stor dosent exist' ,[] , 400);
+        }
+        $socialMedia = socialMedia::where('stor_id' , '=' , $stor_id)->get();
+        if(!$socialMedia){
+            return $this->sendError('Errro In Getting This Stor Social Media Links' ,[] , 500);
+        }else{
+            return $this->sendResponse($socialMedia, 'stor Social Media Links Reads succesfully');
+        }
+    }
+    public function links(Request $resquest){
         $validator = Validator::make($resquest->all() , [
             //'stor_id' , 'link' , 'iosApplication' , 'androidApplication' , 'id'
             'stor_id'=>'required',
@@ -194,15 +210,27 @@ class StorController extends BaseController
             return $this->sendError('error validation', $validator->errors());
         }
         else{            
-            $stor = stor::find($id);
-            if(!$stor){
+            $stor1 = stor::find($resquest->stor_id);
+            if(!$stor1){
                 return $this->sendError('dosent exist id' ,[] , 200);
             }
-            $data = $resquest->except('toekn');
-            $stor = links::updateOrCreate( ['stor_id'=> $id ] , 
+            $data = $resquest->except('token');
+            $stor = links::updateOrCreate( ['stor_id'=>$resquest->stor_id], 
                 $data
             );
-            return $this->sendResponse($stor, 'stor updated succesfully');
+            return $this->sendResponse($stor1, 'stor updated succesfully');
         }
     }   
+    public function getLinks($stor_id){
+        $stor = stor::find($stor_id);
+        if(!$stor){
+            return $this->sendError('This Stor dosent exist' ,[] , 400);
+        }
+        $links = links::where('stor_id' , '=' , $stor_id)->get();
+        if(!$socialMedia){
+            return $this->sendError('Errro In Getting This Stor Links' ,[] , 500);
+        }else{
+            return $this->sendResponse($links, 'stor Links Reads succesfully');
+        }
+    }
 }
