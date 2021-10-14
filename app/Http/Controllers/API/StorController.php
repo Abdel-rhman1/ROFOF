@@ -153,7 +153,7 @@ class StorController extends BaseController
         if(!$customerService){
             return $this->sendError('Errro In Getting This Stor customer Service Links' ,[] , 500);
         }else{
-            return $this->sendResponse($storActivities, 'stor customer Service Links Reads succesfully');
+            return $this->sendResponse($customerService, 'stor customer Service Links Reads succesfully');
         }
     }
     public function socialMedia(Request $resquest){
