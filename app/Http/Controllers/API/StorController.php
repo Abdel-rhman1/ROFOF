@@ -136,12 +136,12 @@ class StorController extends BaseController
             return $this->sendError('error validation', $validator->errors());
         }
         else{            
-            $stor = stor::find($id);
+            $stor = stor::find($resquest->stor_id);
             if(!$stor){
                 return $this->sendError('dosent exist id' ,[] , 200);
             }
             $data = $resquest->except('token');
-            $stor1 = customerService::updateOrCreate(['stor_id'=> $id],
+            $stor1 = customerService::updateOrCreate(['stor_id'=> $resquest->stor_id],
                 $data
             );
             return $this->sendResponse($stor1, 'stor updated succesfully');
