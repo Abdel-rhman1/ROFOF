@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCustomerGroupsTable extends Migration
+class CreateGroupConditionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreateCustomerGroupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('customer_groups', function (Blueprint $table) {
-            $table->id();
-            // $table->integer("vendor_id");
-            $table->integer("stor_id");
-            // $table->integer("branch_id");
-            $table->string("groupName");
+        
             
-            $table->string("groupPaymentMethod");
-            $table->string("groupTransactionMethod");
+            
+        Schema::create('group_conditions', function (Blueprint $table) {
+            $table->id();
+            $table->integer("stor_id");
+            $table->integer("group_id");
+            $table->string("conditionToJoinType");
+            $table->string("conditionToJoin");
+            $table->string("conditionValue");
             $table->timestamps();
         });
     }
@@ -33,6 +34,6 @@ class CreateCustomerGroupsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customer_groups');
+        Schema::dropIfExists('group_conditions');
     }
 }

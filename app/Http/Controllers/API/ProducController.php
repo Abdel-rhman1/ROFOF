@@ -126,7 +126,7 @@ class ProducController extends BaseController
             if(!$Produc){
                 return $this->sendError('This Product dosent exist id' ,[] , 404);
             }else{
-                $data =  $request->except('toekn');
+                $data =  $request->except('token');
                 if(isset($data->qty)){
                     $data->remaing = $data->qty;
                 }

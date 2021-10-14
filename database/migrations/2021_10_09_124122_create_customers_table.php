@@ -17,14 +17,15 @@ class CreateCustomersTable extends Migration
             $table->id();
             $table->integer("stor_id");
             // $table->integer("branch_id");
-            $table->integer("group_id")->nullable();
+            $table->integer("group_id")->default(0);
             $table->string("Fname");
             $table->string("Lname");
             $table->string("email");
-            $table->string("country");
+            $table->integer("country_id");
             $table->string("phone");
             $table->string("brithday");
             $table->string("gender");
+            $table->boolean("blocken")->default(0);
             $table->timestamps();
         });
     }
