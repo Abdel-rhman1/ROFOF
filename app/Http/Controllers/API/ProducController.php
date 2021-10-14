@@ -131,7 +131,8 @@ class ProducController extends BaseController
                     $data->remaing = $data->qty;
                 }
                 $product = Produc::where('id' , '=' , $P_id)->update($data);
-                return $this->sendResponse($data, 'Product Updated succesfully');
+                $product = Produc::where('id' , '= ' . $P_id)->get();
+                return $this->sendResponse($product, 'Product Updated succesfully');
             }
     }
 
