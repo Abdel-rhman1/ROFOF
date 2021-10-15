@@ -1,8 +1,6 @@
 <?php
-
 namespace App\Http\Controllers\API;
 use App\Http\Controllers\API\BaseController;
-
 use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Models\CustomerGroup;
@@ -12,7 +10,7 @@ use Validator;
 class CustomerController extends BaseController
 {
     public function getStorCustomers($stor_id){
-        $stor = stor::find($id);
+        $stor = stor::find($stor_id);
         if(!$stor){
             return $this->sendError(' this stor dosent exist id' ,[] , 200);
         }
@@ -20,19 +18,16 @@ class CustomerController extends BaseController
         return $this->sendResponse($Customers, 'Customers Reads succesfully');
     }
     public function storeCustomer(Request $request){
-        //id' , 'stor_id' , 'group_id' , 'Fname' , 'Lname' , 'email' , 'country' ,
-        //'phone' , 'brithday' , 'gender',
-        $validator = Validator::make($request->all() ,
-        [
+        $validator = Validator::make($request->all(),[
             'stor_id'=>'required|numeric|min:0',
-            'group_id'=>'required|numeric|min:0',
+            'group_id'=>'numeric|min:0',
             'Fname'=>'required|min:4',
             'Lname'=>'required|min:4',
-            'email'=>'required|min:4|unique:customers',
-            'country_id'=>'required|numeric',
+            'email'=>'email|unique:customers',
+            'country_id'=>'required|numeric|min:0',
             'phone'=>'required',
-            'brithday'=>'required|date',
-            'gender'=>'required|numeric|min:1|max:3',
+            'brithday'=>'date',
+            'gender'=>'numeric|min:1|max:3',
             'blocken'=>'numeric|min:0|max:1',
         ],[
 
@@ -40,17 +35,22 @@ class CustomerController extends BaseController
         if($validator->fails()){
             return $this->sendError('error validation', $validator->errors());
         }
+        $stor  = stor::find($request->stor_id);
+        if(!$stor){
+            return $this->sendError('This Stor dosent exist', []);
+        }
         $data = $request->except('token');
         $customer = Customer::create(
             $data
         );
+        
         if(!$customer){
             return $this->sendError('Error In Creating This Element' ,[] , 500);
         }else{
-            return $this->sendResponse($Customers, 'Customer are created succesfully');
+            return $this->sendResponse($customer, 'Customer are created succesfully');
         }
     }
-    public function update(Request $request , $id){
+    public function updateCust(Request $request , $id){
         $customer = Customer::find($id);
         if(!$customer){
             return $this->sendError(' this Customer id dosent exist' ,[] , 400);
@@ -61,8 +61,7 @@ class CustomerController extends BaseController
             'Fname'=>'min:4',
             'Lname'=>'min:4',
             'email'=>'min:4|unique:stors,name,'.$id,
-            'country_id'=>'required|numeric',
-            'city_id'=>'required|numeric',
+            'country_id'=>'numeric',
             'brithday'=>'date',
             'gender'=>'numeric|min:1|max:3',
             'blocken'=>'numeric|min:0|max:1',
@@ -74,14 +73,15 @@ class CustomerController extends BaseController
         }
         $data = $request->except('token');
         $customer = Customer::where('id' , '=' , $id)->update($data);
+        
         if($customer){
-            return $this->sendResponse($Customers, 'Customer is updated succesfully');
+            $customer = Customer::find($id);
+            return $this->sendResponse($customer, 'Customer is updated succesfully');
         }else{
             return $this->sendError('Error In Updating This Element ' ,[] , 500);
         }
     }
     public function CustomerSeach(Request $request){
-        // return Auth()->user();
         $validator = Validator($request->all() ,[
             'stor_id'=>'required|numeric|min:0',
             'word'=>'required',
@@ -99,7 +99,7 @@ class CustomerController extends BaseController
             'Fname' , 'like' , '%' . $request->word . '%'
         )->orwhere(
             'Lname' , 'like' , '%' . $request->word . '%'
-        )->oewhere(
+        )->orwhere(
             'phone' ,  'like' , '%' . $request->word . '%'
         )->get();
 
@@ -120,34 +120,45 @@ class CustomerController extends BaseController
         ]);
 
         if($customer){
+            $customer = Customer::find($c_id);
             return $this->sendResponse($customer, 'Customer is Blocken succesfully');
         }else{
             return $this->sendError('Error In Blocken Customer ' ,[] , 500);
         }
     }
-    public function addCustomerToGroup($stor_id , $group_id , $cus_id){
-
-    }
-    
-    public function createGroup(Request $request){
-        $validator = Validator::make($request->all() , [
-            'name'=>'required|min:3',
-            'stor_id'=>'required|numeric|min:0',
-            'paymentMethod'=>'required',
-            'toJoin'=>'array|min:0',
-            'toJoin.*conditionType'=>'string',
-            'toJoin.*condition'=>'string',
-            'toJoin.*value'=>'string',
-            'transactionMethod'=>'required',
-        ],[
-            
+    public function addCustomerToGroup(int $group_id , int $customer_id , int $stor_id){
+        $customer = Customer::find($customer_id);
+        $stor = stor::find($stor_id);
+        $customergroup = CustomerGroup::find($group_id);
+        if(!$customergroup || !$customer || !$stor){
+            return $this->sendError('Stor Or Group or Customer Dosent Exists' ,[] , 500);
+        }
+        $cus = Customer::where('id' , '=' , $customer_id)->update([
+            'group_id'=>$group_id,
         ]);
-
-        if($validator->fails()){
-            return $this->sendError('error validation', $validator->errors());
+        if($cus){
+            return $this->sendResponse($customer, 'This Customer added To This Group succesfully');
         }else{
-            
+            return $this->sendError('Error In Adding This Customer This Group ' ,[] , 500);
         }
     }
+    public function removeCustomerFromGroup(int $group_id , int $customer_id , int $stor_id){
+        $customer = Customer::find($customer_id);
+        $stor = stor::find($stor_id);
+        $customergroup = CustomerGroup::find($group_id);
+        if(!$customergroup || !$customer || !$stor){
+            return $this->sendError('Stor Or Group or Customer Dosent Exists' ,[] , 500);
+        }
+        $cus = Customer::where('id' , '=' , $customer_id)->where('group_id' , '=' , $group_id)->update([
+            'group_id'=>0,
+        ]);
+        if($cus){
+            return $this->sendResponse($customer, 'This Customer removed To This Group succesfully');
+        }else{
+            return $this->sendError('Error In Removing This Customer from This This Group ' ,[] , 500);
+        }
+    }
+    public function search(){
 
+    }
 }

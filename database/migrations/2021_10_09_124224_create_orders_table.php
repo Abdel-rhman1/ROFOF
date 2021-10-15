@@ -15,9 +15,8 @@ class CreateRequestsTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer("vendor_id");
             $table->integer("stor_id");
-            $table->integer("branch_id");
+            // $table->integer("branch_id");
             $table->integer("customter_id");
             $table->integer("transaction_id");
             $table->integer("paymentmethod");

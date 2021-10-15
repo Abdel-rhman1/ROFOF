@@ -42,7 +42,7 @@ Route::group(['middleware'=>'assign.guard:subadmins'] , function(){
     });
     Route::group(['prefix'=>'stor'], function(){
         Route::post("update/{id}" , 'API\StorController@update');
-        
+
         Route::post("setActivity" , 'API\StorController@storActivity');
         Route::get("getActivities/{stor_id}" , 'API\StorController@getStorActivity');
         
@@ -79,8 +79,28 @@ Route::group(['middleware'=>'assign.guard:subadmins'] , function(){
         Route::post("ProductSearch" , 'API\ProducController@ProductSearch');
         //Route::post('setCustomerServices' , 'API\StorController@customerServicesStor');
     });
+
+
     Route::group(['prefix'=>'customer'] , function(){
+        Route::get("getCustomer/{stor_id}" , "API\CustomerController@getStorCustomers");
+        Route::post('creteCustomer' , "API\CustomerController@storeCustomer");
+        Route::post("updateCustoemr/{c_id}" , "API\CustomerController@updateCust");
+        Route::get("BlockCustomer/{s_id}/{c_id}" , "API\CustomerController@BlockCustomer");
         Route::post("/search" , "API\CustomerController@CustomerSeach");
+        Route::get('addCusToGroup/{g_id}/{c_id}/{s_id}' , 'API\CustomerController@addCustomerToGroup');
+        Route::get('removeCusFromGroup/{g_id}/{c_id}/{s_id}' , 'API\CustomerController@
+                    removeCustomerFromGroup');
+
+        
+        Route::post('/moreSearch' , 'API\CustomerController@search');
+
+
+        //Customer Group APIS 
+        Route::get('getgroups/{stor_id}' , 'API\CustomerGroupController@getGroups');
+        Route::post('createGroup' , 'API\CustomerGroupController@create');
+        Route::post('updateGroup/{G_id}' , 'API\CustomerGroupController@updateGroup');
+        Route::post('deleteGroup/{G_id}' , 'API\CustomerGroupController@deleteGroup');
+
     });
 });
 
@@ -89,6 +109,6 @@ Route::group([],function(){
 });
 
 
-Route::fallback(function () {
-    return view('index');
-});
+// Route::fallback(function () {
+//     return view('index');
+// });

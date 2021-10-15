@@ -18,10 +18,9 @@ class CreateCustomerGroupsTable extends Migration
             // $table->integer("vendor_id");
             $table->integer("stor_id");
             // $table->integer("branch_id");
-            $table->string("groupName");
-            
-            $table->string("groupPaymentMethod");
-            $table->string("groupTransactionMethod");
+            $table->string("name");
+            $table->string("paymentMethod");
+            $table->string("transactionMethod");
             $table->timestamps();
         });
     }

@@ -36,7 +36,7 @@ class brandController extends BaseController
             $stor = stor::find($request->stor_id);
 
             if(!$stor){
-                return $this->sendError('Your Stor dosent exist id' ,[] , 404);
+                return $this->sendError('Your Stor dosent exist id' ,[]);
             }
             $data = $request->except('token');            
             $brand = Brand::create($data);
