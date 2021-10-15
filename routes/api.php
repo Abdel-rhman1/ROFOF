@@ -32,7 +32,7 @@ Route::group(['middleware'=>'assign.guard:subadmins'] , function (){
 });
 
 
-Route::group([/*'middleware'=>'assign.guard:subadmins'*/] , function(){
+Route::group(['middleware'=>'assign.guard:subadmins'] , function(){
     Route::get('/stors' , 'API\StorController@index');
 });
 

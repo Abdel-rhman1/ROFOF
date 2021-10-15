@@ -24,6 +24,5 @@ class BaseController extends Controller
             $response['date'] = $errorMessages;
         }
         return response()->json($response);
-        
     }
 }
